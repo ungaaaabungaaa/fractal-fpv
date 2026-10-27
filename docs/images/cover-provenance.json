@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "asset": "project-cover.png",
+  "sha256": "5a6fc04f80d47a129d82ecc5cf11a71df46e90c5d9ebfeabfbc0055ae65615da",
+  "kind": "AI-generated line-art concept illustration",
+  "approval_date": "2026-10-27",
+  "generator": "OpenAI built-in image generation tool",
+  "prompt": "Use case: style-transfer. Asset: repository cover illustration.\nInput 1 is the user's portfolio SATELLITE drawing. It is the exact style master: preserve its fine black engineering contours and white filled surfaces while replacing its subject with the requested subject. Input 2 is the portfolio CYBERDECK drawing, a secondary reference for delicate seams and precise line detail. Use only these two line-art references; do not introduce a shaded product-render style.\nPrimary request: draw a single mathematically coherent Menger-sponge cube in three-quarter view, with recursive square openings and fine hidden-edge line detail; white faces and no dark filled holes in precisely the satellite reference's black-and-white technical line-art language.\nMedium: meticulous CAD hidden-line / engineering pen drawing, thin crisp black outlines and delicate internal contour strokes, realistic mechanical proportions, white interiors. Perspective should feel like the reference, not a cartoon icon.\nComposition: one standalone centered subject or the specified small group, landscape 16:9, generous clean margins, no crop. Preserve the reference's fine line density and restrained weight.\nPalette: black lines and white surfaces only; edge anti-aliasing is fine. Outside the white-filled object, preserve a transparent background as in the references.\nCritical constraints: no gray surface shading, gradients, rendered materials, cast shadows, ambient occlusion, texture shading, solid black panels, thick cartoon strokes, color, floor plane, diagram arrows, labels, text, logos, watermark or border. This must read as LINE ART, not a monochrome 3D product photograph.",
+  "references": [
+    {
+      "role": "Primary line-art style master",
+      "description": "Portfolio satellite drawing",
+      "source": "https://syedabdulmuqeeth.me/",
+      "sha256": "cdbccb0ad6fc7d23940524b3d72592f13d06b81d86de97f8be1c109a963044d3"
+    },
+    {
+      "role": "Secondary line-detail reference",
+      "description": "Portfolio CyberDeck drawing",
+      "source": "https://syedabdulmuqeeth.me/",
+      "sha256": "6e35ae9a6217b49d7706138af4398bba6d08572af7dfd0f38c549a5212613f5e"
+    }
+  ],
+  "note": "Concept artwork, not measured output or evidence of a physical build."
+}
