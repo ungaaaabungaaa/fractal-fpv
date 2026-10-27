@@ -34,7 +34,7 @@ The same header is included by the Unreal module and the portable C++ tests/expo
 
 Native stdout uses binary mode on Windows. JSON/OBJ scalars are rounded to six fractional decimal places, and near-zero values are normalised to avoid signed-zero platform differences. Geometric tests use full-precision core values. This export precision is for portable visualisation, not manufacturing tolerance.
 
-`scripts/reproduce.py` runs actual CLI bundles, generates the orthographic projection from exported faces, and compares nine committed artifacts byte-for-byte, including source/output hashes. The projection is a depth-sorted portable mesh drawing, not an Unreal render. Local clang++ strict-warning tests and address/undefined-behaviour sanitizer runs passed. CMake/CTest and other OS/compiler results are established by their actual CI runs, separately from local checks.
+`scripts/reproduce.py` runs actual CLI bundles, generates the orthographic projection from exported faces, and compares nine committed artifacts byte-for-byte, including source/output hashes. The projection uses `math.fsum` and sorts depth to nine decimal places, below its three-decimal drawing precision. This keeps equal-depth faces in stable mesh order across Python versions. The projection is a portable mesh drawing, not an Unreal render. Local clang++ strict-warning tests and address/undefined-behaviour sanitizer runs passed. CMake/CTest and other OS/compiler results are established by their actual CI runs, separately from local checks.
 
 ## Unreal evidence boundary
 

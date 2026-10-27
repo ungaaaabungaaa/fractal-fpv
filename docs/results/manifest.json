@@ -6,13 +6,13 @@
     "tools/exporter.cpp": "6d9d43d24b36cef7230db05cbda455a63f0ea46523edb4322f848f1a714a0268",
     "scripts/build_portable.py": "f99214e7ad990c9fefab18d27cf182162831f83b8eabbcf9ff781ffa8e80b775",
     "scripts/fractal.py": "8c57f0145a0fc5dc1320057000f580ce206c8cb0fd497e2f9918ebc9d4d0d17d",
-    "scripts/reproduce.py": "567c7cb842622a3d4f1aca112a2b6b74f2aeeb307578282759c38300ba61e32c"
+    "scripts/reproduce.py": "a466a4c3ca48576c8c80bf08d0cf5f82cda0e144e8c3bb7c30f17ceb91af4bc7"
   },
   "artifacts_sha256": {
     "docs/results/camera-summary.json": "0fd981fed5f0046c7878ba8ee7f2ee8f031d237af23a8cbb3e56a78da1b5add6",
     "docs/results/depth-1.obj": "cd33431f76889d7a7c4048f48c22a1c2951b93d4cb39af423102cdfc563c5cb1",
     "docs/results/metrics.json": "0036f2d42b334cb7e9cf07e03c6070b52f24484f986592c318f46e3e7165391d",
-    "docs/results/projection.svg": "cc3386ea4ed075dfd5f3a6ceb2088729aaaff5153e21e9da27554370d16b926b",
+    "docs/results/projection.svg": "3efe689a2ee233a84b42c836d296175aa88ac35d8fab4b0a86427fffa03ebc35",
     "web/assets/camera-track.json": "0b39db1d76c387611f7a40f16c44626590946d5d06954e4ab21300b5e53cf325",
     "web/assets/mesh-0.json": "669f48cd1f4d0dca285e0ec37e193329d57cb8aa684462f1113ece10400f6aa5",
     "web/assets/mesh-1.json": "e67151c11c96ba3291944234d331a2cc92448fc34069609f4abf97fd4240721f",

@@ -15,7 +15,7 @@ from scripts.fractal import main, native, verified_tool
 
 
 def projection_svg(mesh):
-    dot = lambda a, b: sum(x * y for x, y in zip(a, b))
+    dot = lambda a, b: math.fsum(x * y for x, y in zip(a, b))
     cross = lambda a, b: [
         a[1] * b[2] - a[2] * b[1],
         a[2] * b[0] - a[0] * b[2],
@@ -35,14 +35,15 @@ def projection_svg(mesh):
         if dot(normal, eye) <= 0:
             continue
         points = [mesh["positions"][start + i : start + i + 3] for i in range(0, 12, 3)]
-        centre = [sum(p[axis] for p in points) / 4 for axis in range(3)]
+        centre = [math.fsum(p[axis] for p in points) / 4 for axis in range(3)]
         projected = " ".join(
             f"{500+dot(p,right)*24:.3f},{342-dot(p,up)*24:.3f}" for p in points
         )
         shade = round(225 + 22 * max(0, dot(normal, unit([0.6, -0.8, 1.2]))))
         faces.append(
             (
-                dot(centre, eye),
+                # Tie faces below drawing precision in their stable mesh order.
+                round(dot(centre, eye), 9),
                 f'<polygon points="{projected}" fill="rgb({shade},{shade},{shade})" stroke="#27382e" stroke-width="0.65" stroke-linejoin="round"/>',
             )
         )
