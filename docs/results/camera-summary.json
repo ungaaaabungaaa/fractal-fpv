@@ -1,0 +1,19 @@
+{
+  "kind": "core-camera-export-summary",
+  "sampleCount": 721,
+  "sampleRateHz": 60,
+  "durationSeconds": 12,
+  "pathDistanceM": 60.0,
+  "start": [
+    -30.0,
+    0.0,
+    0.0
+  ],
+  "end": [
+    30.0,
+    0.0,
+    0.0
+  ],
+  "collision": false,
+  "engineValidation": "pending"
+}

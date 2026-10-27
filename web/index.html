@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Fractal FPV — Geometry explorer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#explorer">Skip to explorer</a>
+    <header>
+      <a href="./" class="brand"
+        ><span class="mark" aria-hidden="true">▧</span> FRACTAL / FPV
+        <small>GEOMETRY STUDIES / 017</small></a
+      ><span class="local">OFFLINE ASSETS · LOCAL PREVIEW</span>
+    </header>
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">GENERATE / INSPECT / MOVE THROUGH</p>
+          <h1>Inside the pattern.</h1>
+          <p>
+            A bounded fractal mesh. An open camera path.<br />Explore the actual
+            exports from one portable core.
+          </p>
+        </div>
+        <aside>
+          <span class="tag">BROWSER PREVIEW</span>
+          <p>
+            Unreal project source is included.<br />Engine build and render
+            validation are pending.
+          </p>
+        </aside>
+      </section>
+      <div class="explorer" id="explorer">
+        <section class="viewport" aria-labelledby="view-heading">
+          <div class="view-top">
+            <div>
+              <p class="eyebrow">MENGER-STYLE VOXEL CONSTRUCTION</p>
+              <h2 id="view-heading">Surface, space, repetition.</h2>
+            </div>
+            <span id="camera-mode" class="tag">ORBIT VIEW</span>
+          </div>
+          <div class="canvas-wrap">
+            <canvas
+              id="canvas"
+              tabindex="0"
+              role="img"
+              aria-label="Interactive fractal mesh in metres. Drag to orbit, use arrow keys, or use the adjacent view buttons."
+            ></canvas
+            ><span class="axis-note">X FORWARD / Y RIGHT / Z UP · METRES</span>
+          </div>
+          <div class="view-bottom">
+            <span id="pose">Loading exported geometry…</span
+            ><span>CAMERA COLLISION OFF</span>
+          </div>
+        </section>
+        <aside class="controls">
+          <section>
+            <p class="eyebrow">01 / CONSTRUCTION</p>
+            <label for="depth">Detail level</label
+            ><select id="depth">
+              <option value="0">0 · solid cube</option>
+              <option value="1">1 · 20 retained cells</option>
+              <option value="2" selected>2 · 400 retained cells</option>
+            </select>
+            <p class="hint">
+              Browser fixtures cover levels 0–2. The portable generator supports
+              0–3.
+            </p>
+            <fieldset>
+              <legend>Draw style</legend>
+              <label
+                ><input type="radio" name="style" value="surface" checked />
+                Surface</label
+              ><label
+                ><input type="radio" name="style" value="wire" />
+                Wireframe</label
+              >
+            </fieldset>
+            <dl class="facts">
+              <div>
+                <dt>Side length</dt>
+                <dd id="side">—</dd>
+              </div>
+              <div>
+                <dt>Retained cells</dt>
+                <dd id="cells">—</dd>
+              </div>
+              <div>
+                <dt>Surface triangles</dt>
+                <dd id="triangles">—</dd>
+              </div>
+            </dl>
+          </section>
+          <section>
+            <p class="eyebrow">02 / VIEW CONTROLS</p>
+            <div class="direction-controls">
+              <button id="left" aria-label="Orbit left">←</button
+              ><button id="up" aria-label="Orbit up">↑</button
+              ><button id="down" aria-label="Orbit down">↓</button
+              ><button id="right" aria-label="Orbit right">→</button
+              ><button id="zoom-in" aria-label="Zoom in">+</button
+              ><button id="zoom-out" aria-label="Zoom out">−</button>
+            </div>
+            <button id="reset" class="wide">Reset orbit view ↗</button>
+            <p class="hint">
+              Drag the view to orbit. Scroll to zoom. Keyboard arrows work when
+              the view is focused.
+            </p>
+          </section>
+          <section class="track-controls">
+            <p class="eyebrow">03 / RECORDED CORE CAMERA</p>
+            <button id="play" class="primary" disabled>
+              Play camera track <span aria-hidden="true">▷</span></button
+            ><label for="time"
+              >Track time <span id="time-label">0.00 / 12.00 s</span></label
+            ><input
+              id="time"
+              type="range"
+              min="0"
+              max="12"
+              value="0"
+              step="0.001"
+              disabled
+            />
+            <p id="track-detail" class="hint">Loading recorded poses…</p>
+            <p class="hint">
+              The camera is kinematic. It can pass through solids; no drone
+              physics or collision test is performed.
+            </p>
+          </section>
+        </aside>
+      </div>
+      <p id="status" role="status" aria-live="polite" class="status">
+        Preparing the browser preview…
+      </p>
+      <section class="measurements" aria-label="Actual mesh measurements">
+        <article>
+          <span>Exposed surface area</span><strong id="area">—</strong
+          ><small>sum of generated face areas</small>
+        </article>
+        <article>
+          <span>Retained voxel volume</span><strong id="volume">—</strong
+          ><small>geometric model, not fabrication evidence</small>
+        </article>
+        <article>
+          <span>Triangles removed</span><strong id="reduction">—</strong
+          ><small id="baseline">against unculled cube faces</small>
+        </article>
+      </section>
+      <section class="method">
+        <div>
+          <p class="eyebrow">COUNTS, NOT PERFORMANCE CLAIMS</p>
+          <h2>Remove the hidden faces.</h2>
+          <p>
+            The generator retains 20 of each 27 sub-cells, then emits faces
+            bordering empty space. The comparison counts triangles against
+            drawing every retained cube in full. It does not measure a
+            frame-rate improvement.
+          </p>
+        </div>
+        <div class="downloads">
+          <h3>Inspect the same data</h3>
+          <a id="download-mesh" href="assets/mesh-2.json" download
+            >Current mesh JSON ↓</a
+          ><a href="assets/camera-track.json" download
+            >Recorded camera JSON ↓</a
+          >
+          <p class="hint">
+            OBJ export, source checks, and full level-3 generation are available
+            through the portable CLI.
+          </p>
+        </div>
+      </section>
+      <footer>
+        <p>
+          Browser geometry and core-camera exports are distinct from an Unreal
+          render. The project contains the same core, an actor, a controllable
+          pawn, startup scene and input mappings. Engine compilation, startup,
+          rendering, packaging and profiling remain unverified.
+        </p>
+        <a
+          href="https://github.com/ungaaaabungaaa/fractal-fpv"
+          target="_blank"
+          rel="noreferrer"
+          >Source, controls &amp; validation ↗</a
+        >
+      </footer>
+    </main>
+  </body>
+</html>

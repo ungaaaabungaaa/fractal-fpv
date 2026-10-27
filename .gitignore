@@ -1,0 +1,15 @@
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vs/
+.idea/
+*.sln
+*.xcodeproj/
+build/
+dist/
+runs/
+__pycache__/
+*.py[cod]
+.DS_Store
+track-run/
