@@ -289,6 +289,10 @@ function orbitBy(yaw, pitch) {
   orbit.yaw += yaw;
   orbit.pitch = Math.max(-80, Math.min(80, orbit.pitch + pitch));
   draw();
+  if (ready && mesh)
+    status(
+      `Orbit view of the actual level ${mesh.report.depth} export. Unreal validation remains pending.`,
+    );
 }
 function zoom(factor) {
   if (!mesh) return;

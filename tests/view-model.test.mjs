@@ -90,3 +90,56 @@ test("camera playback status distinguishes playing, paused, and completed tracks
   assert.match(cameraTrackStatus(12, 12, false), /^Track complete/);
   assert.match(cameraTrackStatus(0, 12, false), /^Camera track paused at 0.0/);
 });
+
+test("orbit, zoom, keyboard and pointer controls replace stale playback status", async () => {
+  const { runInNewContext } = await import("node:vm");
+  const viewModel = await import("../web/view-model.js");
+  const elements = new Map();
+  const gl = new Proxy({ getShaderParameter: () => true, getProgramParameter: () => true }, {
+    get: (target, name) => target[name] ?? (String(name).toUpperCase() === name ? 0 : () => ({})),
+  });
+  const element = (id) => {
+    if (!elements.has(id)) elements.set(id, {
+      textContent: "", value: "0", events: {}, width: 800, height: 600,
+      classList: { toggle() {}, add() {}, remove() {} },
+      addEventListener(name, callback) { this.events[name] = callback; },
+      getContext: () => gl, getBoundingClientRect: () => ({ width: 800, height: 600 }),
+      setPointerCapture() {},
+    });
+    return elements.get(id);
+  };
+  let cancelled = 0;
+  const source = (await readFile(new URL("../web/app.js", import.meta.url), "utf8"))
+    .replace(/^import\s*\{[^}]+\}\s*from\s*"\.\/view-model\.js";\s*/, "");
+  await runInNewContext(`(async () => { ${source} })()`, {
+    ...viewModel, document: { getElementById: element, querySelectorAll: () => [] },
+    window: { devicePixelRatio: 1 }, ResizeObserver: class { observe() {} },
+    performance: { now: () => 0 }, requestAnimationFrame: () => 1,
+    cancelAnimationFrame: () => cancelled++, TextDecoder,
+    fetch: async (path) => ({ ok: true, arrayBuffer: async () => {
+      const bytes = await readFile(new URL(`../web/${path}`, import.meta.url));
+      return Uint8Array.from(bytes).buffer;
+    } }),
+    console: { error(error) { throw error; } },
+  });
+  for (const action of [
+    () => element("left").events.click(),
+    () => element("zoom-in").events.click(),
+    () => element("canvas").events.keydown({ key: "ArrowRight", preventDefault() {} }),
+    () => {
+      element("canvas").events.pointerdown({ clientX: 0, clientY: 0, pointerId: 1 });
+      element("canvas").events.pointermove({ clientX: 10, clientY: 10 });
+      element("canvas").events.pointerup();
+    },
+  ]) {
+    element("play").events.click();
+    assert.match(element("status").textContent, /^Playing/);
+    const before = cancelled;
+    action();
+    assert.equal(cancelled, before + 1);
+    assert.equal(element("play").textContent, "Play camera track ▷");
+    assert.equal(element("camera-mode").textContent, "ORBIT VIEW");
+    assert.match(element("status").textContent, /^Orbit view of the actual level 2 export/);
+    assert.match(element("status").textContent, /Unreal validation remains pending/);
+  }
+});
