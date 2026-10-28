@@ -80,3 +80,13 @@ test("the left-handed browser projection uses clockwise screen front faces for u
     area = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
   assert.ok(area < 0, "outside +X face must have clockwise screen area");
 });
+
+test("camera playback status distinguishes playing, paused, and completed tracks", async () => {
+  const { cameraTrackStatus } = await import("../web/view-model.js");
+  assert.equal(typeof cameraTrackStatus, "function");
+  assert.match(cameraTrackStatus(2.5, 12, true), /^Playing/);
+  assert.equal(cameraTrackStatus(2.5, 12, false),
+    "Camera track paused at 2.5 of 12.0 seconds. Collision is disabled.");
+  assert.match(cameraTrackStatus(12, 12, false), /^Track complete/);
+  assert.match(cameraTrackStatus(0, 12, false), /^Camera track paused at 0.0/);
+});

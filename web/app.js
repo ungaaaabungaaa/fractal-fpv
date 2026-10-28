@@ -2,6 +2,7 @@ import {
   validateMesh,
   validateTrack,
   interpolatePose,
+  cameraTrackStatus,
   lookAt,
   perspective,
 } from "./view-model.js";
@@ -358,14 +359,13 @@ function tick(now) {
   draw();
   if (time >= track.durationSeconds) {
     stop();
-    status(
-      "Track complete. The camera has moved beyond the mesh. Reset orbit to inspect the shape.",
-    );
+    status(cameraTrackStatus(time, track.durationSeconds, playing));
   } else frame = requestAnimationFrame(tick);
 }
 $("play").addEventListener("click", () => {
   if (playing) {
     stop();
+    status(cameraTrackStatus(time, track.durationSeconds, playing));
     return;
   }
   if (!track || !ready) return;
@@ -374,7 +374,7 @@ $("play").addEventListener("click", () => {
   playing = true;
   start = performance.now() - time * 1000;
   text("play", "Pause camera track Ⅱ");
-  status("Playing the recorded core-camera track. Collision is disabled.");
+  status(cameraTrackStatus(time, track.durationSeconds, playing));
   frame = requestAnimationFrame(tick);
 });
 $("time").addEventListener("input", () => {
@@ -383,6 +383,7 @@ $("time").addEventListener("input", () => {
   mode = "track";
   time = Number($("time").value);
   draw();
+  status(cameraTrackStatus(time, track.durationSeconds, playing));
 });
 canvas.addEventListener("webglcontextlost", (event) => {
   event.preventDefault();
