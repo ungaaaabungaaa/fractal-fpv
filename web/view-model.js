@@ -204,3 +204,11 @@ export function perspective(fov, aspect, near, far) {
     0,
   ]);
 }
+
+export function cameraTrackStatus(time, duration, playing) {
+  if (playing)
+    return "Playing the recorded core-camera track. Collision is disabled.";
+  if (time >= duration)
+    return "Track complete. The camera has moved beyond the mesh. Reset orbit to inspect the shape.";
+  return `Camera track paused at ${time.toFixed(1)} of ${duration.toFixed(1)} seconds. Collision is disabled.`;
+}
